@@ -1,4 +1,4 @@
-package com.example.testwatchapp.presentation
+package com.example.testwatchapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController

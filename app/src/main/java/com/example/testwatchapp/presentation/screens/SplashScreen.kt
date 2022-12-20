@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -16,12 +17,15 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import com.example.testwatchapp.R
 import com.example.testwatchapp.presentation.sealed.RootScreens
+import com.example.testwatchapp.presentation.storage.Token
 import com.example.testwatchapp.presentation.theme.Italiano
 import com.example.testwatchapp.presentation.theme.Orange1
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavHostController) {
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -45,8 +49,13 @@ fun SplashScreen(navController: NavHostController) {
         )
     }
 
+
     LaunchedEffect(key1 = true) {
         delay(3000)
-        navController.navigate(RootScreens.SignInScreen.route)
+        if(Token(context).readToken() == ""){
+            navController.navigate(RootScreens.SignInScreen.route)
+        } else {
+            navController.navigate(RootScreens.OrderScreen.route)
+        }
     }
 }
